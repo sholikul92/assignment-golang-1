@@ -1,19 +1,48 @@
 package main
 
 import (
-	"fmt"
-
 	"a21hc3NpZ25tZW50/helper"
+	"fmt"
+	"strings"
+	// "a21hc3NpZ25tZW50/helper"
 )
 
 var Students string = "A1234_Aditira_TI, B2131_Dito_TK, A3455_Afis_MI"
 var StudentStudyPrograms string = "TI_Teknik Informatika, TK_Teknik Komputer, SI_Sistem Informasi, MI_Manajemen Informasi"
 
 func Login(id string, name string) string {
-	return "" // TODO: replace this
+	if id == "" || name == "" {
+		return "ID or Name is undefined!"
+	}
+
+	if len(id) != 5 {
+		return "ID must be 5 characters long!"
+	}
+
+	students := strings.Split(Students, ", ")
+
+	var nameStudent string
+	var prody string
+
+	for _, student := range students {
+		idStudentAvailable := strings.Contains(student, id)
+		nameStudentAvailable := strings.Contains(student, name)
+
+		if idStudentAvailable && nameStudentAvailable {
+			nameStudent = strings.Split(student, "_")[1]
+			prody = strings.Split(student, "_")[2]
+			break
+		}
+	}
+
+	if nameStudent == "" && prody == "" {
+		return "Login gagal: data mahasiswa tidak ditemukan"
+	}
+
+	result := fmt.Sprintf("Login berhasil: %s (%s)", nameStudent, prody)
+
+	return result // TODO: replace this
 }
-
-
 
 func Register(id string, name string, major string) string {
 	return "" // TODO: replace this
@@ -81,3 +110,8 @@ func main() {
 		}
 	}
 }
+
+// func main for debugging
+// func main() {
+// 	fmt.Println(Login("B2131", "Dito"))
+// }
