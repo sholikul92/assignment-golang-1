@@ -4,7 +4,6 @@ import (
 	"a21hc3NpZ25tZW50/helper"
 	"fmt"
 	"strings"
-	// "a21hc3NpZ25tZW50/helper"
 )
 
 var Students string = "A1234_Aditira_TI, B2131_Dito_TK, A3455_Afis_MI"
@@ -45,7 +44,21 @@ func Login(id string, name string) string {
 }
 
 func Register(id string, name string, major string) string {
-	return "" // TODO: replace this
+	if id == "" || name == "" || major == "" {
+		return "ID, Name or Major is undefined!"
+	}
+
+	if len(id) != 5 {
+		return "ID must be 5 characters long!"
+	}
+
+	if strings.Contains(Students, id) {
+		return "Registrasi gagal: id sudah digunakan"
+	}
+
+	Students += fmt.Sprintf(", %s_%s_%s", id, name, major)
+	result := fmt.Sprintf("Registrasi berhasil: %s (%s)", name, major)
+	return result // TODO: replace this
 }
 
 func GetStudyProgram(code string) string {
@@ -113,5 +126,5 @@ func main() {
 
 // func main for debugging
 // func main() {
-// 	fmt.Println(Login("B2131", "Dito"))
+// 	fmt.Println(Register("C1234", "Citra", "TS"))
 // }
