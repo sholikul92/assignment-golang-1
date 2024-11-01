@@ -40,7 +40,7 @@ func Login(id string, name string) string {
 
 	result := fmt.Sprintf("Login berhasil: %s (%s)", nameStudent, prody)
 
-	return result // TODO: replace this
+	return result
 }
 
 func Register(id string, name string, major string) string {
@@ -58,11 +58,25 @@ func Register(id string, name string, major string) string {
 
 	Students += fmt.Sprintf(", %s_%s_%s", id, name, major)
 	result := fmt.Sprintf("Registrasi berhasil: %s (%s)", name, major)
-	return result // TODO: replace this
+	return result
 }
 
 func GetStudyProgram(code string) string {
-	return "" // TODO: replace this
+	if code == "" {
+		return "Code is undefined!"
+	}
+
+	var result string
+	studyPrograms := strings.Split(StudentStudyPrograms, ", ")
+	for _, prody := range studyPrograms {
+		codeStudyProgramValid := strings.Contains(prody, code)
+
+		if codeStudyProgramValid {
+			result = strings.Split(prody, "_")[1]
+			break
+		}
+	}
+	return result
 }
 
 func main() {
@@ -126,5 +140,5 @@ func main() {
 
 // func main for debugging
 // func main() {
-// 	fmt.Println(Register("C1234", "Citra", "TS"))
+// 	fmt.Println(GetStudyProgram("SI"))
 // }
